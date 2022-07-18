@@ -24,5 +24,5 @@ val DEV_ROLE = Snowflake(env("DEV_ROLE"))
 /** The id of the Downtime notification role which will be pinged when there is downtime. */
 val DOWNTIME_ROLE = Snowflake(env("DOWNTIME_ROLE"))
 
-/** The channel the downtime announcement and summary will be posted in*/
+/** The channel the downtime announcement and summary will be posted in. */
 val ANNOUNCEMENT_CHANNEL = Snowflake(env("ANNOUNCEMENT_CHANNEL"))

@@ -54,12 +54,16 @@ class OnlineWatcher : Extension() {
 	private suspend fun checkOnline() {
 		/** The instant this check is being run. */
 		val checkTime = Clock.System.now()
+
 		/** The guild we're working in. */
 		val guild = kord.getGuild(GUILD_ID)!!
+
 		/** The member object of the bot being watched. */
 		val lily = guild.getMember(LILY_ID)
+
 		/** The presence of the bot, if null default to offline. */
 		val lilyStatus = lily.getPresenceOrNull()?.status ?: PresenceStatus.Offline
+
 		/** The channel to post the announcement too. */
 		val announcementChannel = guild.getChannelOf<NewsChannel>(ANNOUNCEMENT_CHANNEL)
 
@@ -68,8 +72,10 @@ class OnlineWatcher : Extension() {
 			offlineMinutes++ // ... Add a minute to the counter...
 			logger.info { "Offline detected. Duration: $offlineMinutes minutes" } // ... and Log the duration.
 			if (offlineMinutes == 2) { // If the bot has been offline for 2 minutes...
-				downtimeStart = checkTime.minus(Duration.parse("PT1M")) // ... set the downtime start to 1 minute ago to account for setting in the second minute
-				announcementChannel.createMessage { // ... create a message in the announcement channel...
+				// ... set the downtime start to 1 minute ago to account for setting in the second minute...
+				downtimeStart = checkTime.minus(Duration.parse("PT1M"))
+				// ... create a message in the announcement channel...
+				announcementChannel.createMessage {
 					content = "${guild.getRole(DOWNTIME_ROLE).mention} Lily is suffering some downtime. " +
 							"Please be patient while the ${guild.getRole(DEV_ROLE).mention} resolve the issue."
 				}.publish() // ... and publish it to servers that follow the channel.
@@ -83,7 +89,7 @@ class OnlineWatcher : Extension() {
 				guild.getChannelOf<NewsChannel>(ANNOUNCEMENT_CHANNEL).createMessage {
 					content = "${guild.getRole(DOWNTIME_ROLE).mention} Lily is back online! You can find a brief " +
 							"summary of the downtime period below."
-					embed {// ... and create an embed to show the downtime summary...
+					embed { // ... and create an embed to show the downtime summary...
 						title = "Downtime Summary"
 						field {
 							name = "Start"
