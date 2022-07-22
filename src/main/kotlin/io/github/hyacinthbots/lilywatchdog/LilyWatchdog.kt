@@ -11,7 +11,7 @@ package io.github.hyacinthbots.lilywatchdog
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import io.github.hyacinthbots.lilywatchdog.extensions.OnlineWatcher
+import io.github.hyacinthbots.lilywatchdog.extensions.DowntimeWatcher
 
 suspend fun main() {
     val bot = ExtensibleBot(BOT_TOKEN) {
@@ -28,7 +28,7 @@ suspend fun main() {
         }
 
         extensions {
-            add(::OnlineWatcher)
+            add(::DowntimeWatcher)
         }
 
 		presence {

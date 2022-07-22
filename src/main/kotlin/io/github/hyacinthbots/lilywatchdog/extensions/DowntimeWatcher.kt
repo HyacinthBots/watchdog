@@ -26,10 +26,10 @@ import kotlinx.datetime.Instant
 import mu.KotlinLogging
 import kotlin.time.Duration
 
-class OnlineWatcher : Extension() {
-	override val name = "online-watcher"
+class DowntimeWatcher : Extension() {
+	override val name = "downtime-watcher"
 
-	private val logger = KotlinLogging.logger("OnlineWatcher")
+	private val logger = KotlinLogging.logger("DowntimeWatcher")
 
 	/** The scheduler that will run the checks. */
 	private val scheduler = Scheduler()
@@ -38,20 +38,20 @@ class OnlineWatcher : Extension() {
 	private lateinit var task: Task
 
 	/** The instant the downtime was logged as starting. */
-	private lateinit var downtimeStart: Instant
+	private var downtimeStart: Instant? = null
 
 	/** The number of minutes the bot has been offline for. */
 	private var offlineMinutes = 0
 
 	override suspend fun setup() {
-		task = scheduler.schedule(seconds = 60, pollingSeconds = 60, repeat = true, callback = ::checkOnline)
+		task = scheduler.schedule(seconds = 60, pollingSeconds = 60, repeat = true, callback = ::checkForDowntime)
 	}
 
 	/**
 	 * This function will check the status of the bot and log it to the announcement channel if necessary.
 	 * @author NoComment1105
 	 */
-	private suspend fun checkOnline() {
+	private suspend fun checkForDowntime() {
 		/** The instant this check is being run. */
 		val checkTime = Clock.System.now()
 
@@ -67,34 +67,30 @@ class OnlineWatcher : Extension() {
 		/** The channel to post the announcement too. */
 		val announcementChannel = guild.getChannelOf<NewsChannel>(ANNOUNCEMENT_CHANNEL)
 
-		// If the bot is offline...
 		if (lilyStatus == PresenceStatus.Offline || lilyStatus == PresenceStatus.Invisible) {
-			offlineMinutes++ // ... Add a minute to the counter...
-			logger.info { "Offline detected. Duration: $offlineMinutes minutes" } // ... and Log the duration.
-			if (offlineMinutes == 2) { // If the bot has been offline for 2 minutes...
-				// ... set the downtime start to 1 minute ago to account for setting in the second minute...
+			offlineMinutes++
+			logger.info { "Offline detected. Duration: $offlineMinutes minutes" }
+			if (offlineMinutes == 2) {
 				downtimeStart = checkTime.minus(Duration.parse("PT1M"))
-				// ... create a message in the announcement channel...
 				announcementChannel.createMessage {
 					content = "${guild.getRole(DOWNTIME_ROLE).mention} Lily is suffering some downtime. " +
 							"Please be patient while the ${guild.getRole(DEV_ROLE).mention} resolve the issue."
-				}.publish() // ... and publish it to servers that follow the channel.
+				}.publish()
 			}
 		} else {
-			if (offlineMinutes > 0) { // If the bot is online and some offline minutes are stored...
-				logger.info { "Online restored!" } // ... Log the fact that the bot is online once more...
+			if (offlineMinutes > 0 && downtimeStart != null) {
+				logger.info { "Online restored!" }
 				val onlineTime = Clock.System.now()
 
-				// ... create a message in the announcement channel...
 				guild.getChannelOf<NewsChannel>(ANNOUNCEMENT_CHANNEL).createMessage {
 					content = "${guild.getRole(DOWNTIME_ROLE).mention} Lily is back online! You can find a brief " +
 							"summary of the downtime period below."
-					embed { // ... and create an embed to show the downtime summary...
+					embed {
 						title = "Downtime Summary"
 						field {
 							name = "Start"
-							value = "${downtimeStart.toDiscord(TimestampType.LongDateTime)} ${
-								downtimeStart.toDiscord(TimestampType.RelativeTime)
+							value = "${downtimeStart!!.toDiscord(TimestampType.LongDateTime)} ${
+								downtimeStart!!.toDiscord(TimestampType.RelativeTime)
 							}"
 						}
 						field {
@@ -108,10 +104,9 @@ class OnlineWatcher : Extension() {
 							value = "$offlineMinutes minutes"
 						}
 					}
-				}.publish() // ... publish it to servers that follow the channel...
+				}.publish()
 			}
 
-			// ... Reset the downtime counter
 			offlineMinutes = 0
 		}
 	}
