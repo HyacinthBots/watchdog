@@ -82,7 +82,7 @@ class DowntimeWatcher : Extension() {
 				logger.info { "Online restored!" }
 				val onlineTime = Clock.System.now()
 
-				guild.getChannelOf<NewsChannel>(ANNOUNCEMENT_CHANNEL).createMessage {
+				announcementChannel.createMessage {
 					content = "${guild.getRole(DOWNTIME_ROLE).mention} Lily is back online! You can find a brief " +
 							"summary of the downtime period below."
 					embed {
