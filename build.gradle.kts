@@ -41,7 +41,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.github.nocomment1105.hyacinthbots.LilyWatchdogKt")
+    mainClass.set("io.github.hyacinthbots.LilyWatchdogKt")
 }
 
 gitHooks {
