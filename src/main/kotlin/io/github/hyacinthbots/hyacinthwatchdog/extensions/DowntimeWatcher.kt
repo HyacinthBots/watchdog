@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package io.github.hyacinthbots.lilywatchdog.extensions
+package io.github.hyacinthbots.hyacinthwatchdog.extensions
 
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.time.TimestampType
@@ -16,11 +16,11 @@ import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
 import dev.kord.core.entity.channel.NewsChannel
 import dev.kord.rest.builder.message.create.embed
-import io.github.hyacinthbots.lilywatchdog.ANNOUNCEMENT_CHANNEL
-import io.github.hyacinthbots.lilywatchdog.DEV_ROLE
-import io.github.hyacinthbots.lilywatchdog.DOWNTIME_ROLE
-import io.github.hyacinthbots.lilywatchdog.GUILD_ID
-import io.github.hyacinthbots.lilywatchdog.LILY_ID
+import io.github.hyacinthbots.hyacinthwatchdog.ANNOUNCEMENT_CHANNEL
+import io.github.hyacinthbots.hyacinthwatchdog.DEV_ROLE
+import io.github.hyacinthbots.hyacinthwatchdog.DOWNTIME_ROLE
+import io.github.hyacinthbots.hyacinthwatchdog.GUILD_ID
+import io.github.hyacinthbots.hyacinthwatchdog.LILY_ID
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import mu.KotlinLogging

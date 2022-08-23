@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package io.github.hyacinthbots.lilywatchdog
+package io.github.hyacinthbots.hyacinthwatchdog
 
 import com.kotlindiscord.kord.extensions.utils.env
 import dev.kord.common.entity.Snowflake
