@@ -11,7 +11,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Lily-watchdog"
+rootProject.name = "Hyacinth-watchdog"
 
 enableFeaturePreview("VERSION_CATALOGS")
 
