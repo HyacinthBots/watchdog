@@ -108,6 +108,7 @@ class DowntimeWatcher : Extension() {
 			}
 
 			offlineMinutes = 0
+			downtimeStart = null
 		}
 	}
 }
