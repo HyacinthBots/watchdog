@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package io.github.hyacinthbots.hyacinthwatchdog.extensions
+package org.hyacinthbots.hyacinthwatchdog.extensions
 
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.time.TimestampType
@@ -16,14 +16,14 @@ import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
 import dev.kord.core.entity.channel.NewsChannel
 import dev.kord.rest.builder.message.create.embed
-import io.github.hyacinthbots.hyacinthwatchdog.ANNOUNCEMENT_CHANNEL
-import io.github.hyacinthbots.hyacinthwatchdog.DEV_ROLE
-import io.github.hyacinthbots.hyacinthwatchdog.DOWNTIME_ROLE
-import io.github.hyacinthbots.hyacinthwatchdog.GUILD_ID
-import io.github.hyacinthbots.hyacinthwatchdog.LILY_ID
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import mu.KotlinLogging
+import org.hyacinthbots.hyacinthwatchdog.ANNOUNCEMENT_CHANNEL
+import org.hyacinthbots.hyacinthwatchdog.DEV_ROLE
+import org.hyacinthbots.hyacinthwatchdog.DOWNTIME_ROLE
+import org.hyacinthbots.hyacinthwatchdog.GUILD_ID
+import org.hyacinthbots.hyacinthwatchdog.LILY_ID
 import kotlin.time.Duration
 
 class DowntimeWatcher : Extension() {

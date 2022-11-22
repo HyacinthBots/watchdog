@@ -11,7 +11,7 @@ plugins {
     id("org.cadixdev.licenser") version "0.6.1"
 }
 
-group = "io.github.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+group = "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
 version = "1.0.0"
 
 repositories {
@@ -41,7 +41,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("io.github.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt")
+    mainClass.set("org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt")
 }
 
 gitHooks {
@@ -66,7 +66,7 @@ tasks {
     jar {
         manifest {
             attributes(
-                "Main-Class" to "io.github.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+                "Main-Class" to "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
             )
         }
     }
