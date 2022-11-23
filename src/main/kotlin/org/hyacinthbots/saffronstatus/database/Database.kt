@@ -4,12 +4,12 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package org.hyacinthbots.watchdog.database
+package org.hyacinthbots.saffronstatus.database
 
 import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import org.bson.UuidRepresentation
-import org.hyacinthbots.watchdog.MONGO_URI
+import org.hyacinthbots.saffronstatus.MONGO_URI
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 

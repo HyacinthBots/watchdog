@@ -4,13 +4,13 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package org.hyacinthbots.watchdog.database.collections
+package org.hyacinthbots.saffronstatus.database.collections
 
 import com.kotlindiscord.kord.extensions.koin.KordExKoinComponent
 import dev.kord.common.entity.Snowflake
-import org.hyacinthbots.watchdog.database.Database
-import org.hyacinthbots.watchdog.database.entities.CurrentDowntime
-import org.hyacinthbots.watchdog.database.entities.WatchedBotData
+import org.hyacinthbots.saffronstatus.database.Database
+import org.hyacinthbots.saffronstatus.database.entities.CurrentDowntime
+import org.hyacinthbots.saffronstatus.database.entities.WatchedBotData
 import org.koin.core.component.inject
 import org.litote.kmongo.eq
 

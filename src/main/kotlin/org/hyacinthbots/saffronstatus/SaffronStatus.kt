@@ -6,13 +6,13 @@
 
 @file:OptIn(PrivilegedIntent::class)
 
-package org.hyacinthbots.watchdog
+package org.hyacinthbots.saffronstatus
 
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import org.hyacinthbots.watchdog.extensions.DowntimeNotifier
-import org.hyacinthbots.watchdog.extensions.WatchedBot
+import org.hyacinthbots.saffronstatus.extensions.DowntimeNotifier
+import org.hyacinthbots.saffronstatus.extensions.WatchedBot
 
 suspend fun main() {
     val bot = ExtensibleBot(BOT_TOKEN) {

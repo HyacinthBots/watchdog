@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package org.hyacinthbots.watchdog.extensions
+package org.hyacinthbots.saffronstatus.extensions
 
 import com.kotlindiscord.kord.extensions.checks.anyGuild
 import com.kotlindiscord.kord.extensions.checks.hasPermission
@@ -23,8 +23,8 @@ import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.getChannelOfOrNull
 import dev.kord.core.entity.channel.GuildMessageChannel
 import dev.kord.rest.builder.message.create.embed
-import org.hyacinthbots.watchdog.database.collections.WatchedBotCollection
-import org.hyacinthbots.watchdog.database.entities.WatchedBotData
+import org.hyacinthbots.saffronstatus.database.collections.WatchedBotCollection
+import org.hyacinthbots.saffronstatus.database.entities.WatchedBotData
 
 class WatchedBot : Extension() {
 	override val name: String = "watched-bot"

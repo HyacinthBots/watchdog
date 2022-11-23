@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package org.hyacinthbots.watchdog.extensions
+package org.hyacinthbots.saffronstatus.extensions
 
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.time.TimestampType.LongDateTime
@@ -19,8 +19,8 @@ import dev.kord.core.entity.channel.GuildMessageChannel
 import dev.kord.rest.builder.message.create.embed
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.Clock
-import org.hyacinthbots.watchdog.database.collections.WatchedBotCollection
-import org.hyacinthbots.watchdog.database.entities.CurrentDowntime
+import org.hyacinthbots.saffronstatus.database.collections.WatchedBotCollection
+import org.hyacinthbots.saffronstatus.database.entities.CurrentDowntime
 import kotlin.time.Duration
 
 class DowntimeNotifier : Extension() {

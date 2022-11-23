@@ -12,7 +12,7 @@ plugins {
     id("org.cadixdev.licenser") version "0.6.1"
 }
 
-group = "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+group = "org.hyacinthbots.saffronstatus.SaffronStatusKt"
 version = "1.0.0"
 
 repositories {
@@ -45,7 +45,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("org.hyacinthbots.watchdog.WatchdogKt")
+    mainClass.set("org.hyacinthbots.saffronstatus.SaffronStatusKt")
 }
 
 gitHooks {
@@ -70,7 +70,7 @@ tasks {
     jar {
         manifest {
             attributes(
-                "Main-Class" to "org.hyacinthbots.watchdog.WatchdogKt"
+                "Main-Class" to "org.hyacinthbots.saffronstatus.SaffronStatusKt"
             )
         }
     }

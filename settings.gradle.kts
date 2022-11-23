@@ -12,7 +12,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "watchdog"
+rootProject.name = "SaffronStatus"
 
 enableFeaturePreview("VERSION_CATALOGS")
 

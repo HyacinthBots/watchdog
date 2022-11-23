@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-package org.hyacinthbots.watchdog.database.entities
+package org.hyacinthbots.saffronstatus.database.entities
 
 import dev.kord.common.entity.Snowflake
 import kotlinx.datetime.Instant
