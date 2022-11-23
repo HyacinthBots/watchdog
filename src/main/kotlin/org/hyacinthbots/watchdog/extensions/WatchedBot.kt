@@ -11,15 +11,18 @@ import com.kotlindiscord.kord.extensions.checks.hasPermission
 import com.kotlindiscord.kord.extensions.commands.Arguments
 import com.kotlindiscord.kord.extensions.commands.application.slash.ephemeralSubCommand
 import com.kotlindiscord.kord.extensions.commands.converters.impl.channel
+import com.kotlindiscord.kord.extensions.commands.converters.impl.int
 import com.kotlindiscord.kord.extensions.commands.converters.impl.optionalRole
 import com.kotlindiscord.kord.extensions.commands.converters.impl.user
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import com.kotlindiscord.kord.extensions.types.respond
+import com.kotlindiscord.kord.extensions.utils.suggestStringMap
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Snowflake
 import dev.kord.core.behavior.getChannelOfOrNull
 import dev.kord.core.entity.channel.GuildMessageChannel
+import dev.kord.rest.builder.message.create.embed
 import org.hyacinthbots.watchdog.database.collections.WatchedBotCollection
 import org.hyacinthbots.watchdog.database.entities.WatchedBotData
 
@@ -78,15 +81,17 @@ class WatchedBot : Extension() {
 									"and that I have permission to view it!"
 						}
 						return@action
-					} else if (arguments.notificationRole != null && role != null) {
+					} else if (arguments.notificationRole != null && role == null) {
 						respond {
 							content = "I cannot find the Notification role you specified. Please check it exists!"
 						}
+						return@action
 					} else if (arguments.notificationRole != null && role?.mentionable != true) {
 						respond {
 							content =
 								"I cannot mention role: `${role?.name}`. Please make sure I can mention it and try again"
 						}
+						return@action
 					}
 
 					WatchedBotCollection().addWatchedBot(
@@ -94,12 +99,75 @@ class WatchedBot : Extension() {
 							guild!!.id,
 							arguments.notificationChannel.id,
 							arguments.notificationRole?.id,
+							arguments.downtimeLength,
+							null,
 							botMap
 						)
 					)
 
 					respond {
 						content = "Bot added to watchlist!"
+					}
+				}
+			}
+
+			ephemeralSubCommand(::RemoveArgs) {
+				name = "remove"
+				description = "Remove a bot from the watchlist"
+
+				check {
+					anyGuild()
+					hasPermission(Permission.ManageGuild)
+				}
+
+				action {
+					val watchedBots = WatchedBotCollection().getWatchedBots(guild!!.id)
+					val botMap = mutableMapOf<String, Snowflake>()
+					botMap[arguments.bot.username] = arguments.bot.id
+
+					val isBotPresent = watchedBots.find {
+						it.bot == botMap
+					}
+
+					if (isBotPresent == null) {
+						respond {
+							content = "This bot is not in the watchlist"
+						}
+						return@action
+					}
+
+					WatchedBotCollection().removeWatchedBot(guild!!.id, botMap)
+
+					respond {
+						content = "Bot removed from watchlist"
+					}
+				}
+			}
+
+			ephemeralSubCommand {
+				name = "view"
+				description = "View the bots you're watching"
+
+				check {
+					anyGuild()
+				}
+
+				action {
+					val watchedBots = WatchedBotCollection().getWatchedBots(guild!!.id)
+
+					var response = ""
+					watchedBots.forEach { entry ->
+						entry.bot.forEach {
+							response +=
+								"Name: ${it.key}\nMention: <@${it.value}>\nDowntime Length: ${entry.downtimeLength}\n---\n"
+						}
+					}
+
+					respond {
+						embed {
+							title = "Watched bots"
+							description = response
+						}
 					}
 				}
 			}
@@ -112,6 +180,11 @@ class WatchedBot : Extension() {
 			description = "The bot to watch"
 		}
 
+		val downtimeLength by int {
+			name = "downtime-length"
+			description = "The length of downtime required for a notification to be posted."
+		}
+
 		val notificationChannel by channel {
 			name = "notification-channel"
 			description = "The channel to send the notifications too when the bot goes offline"
@@ -120,6 +193,26 @@ class WatchedBot : Extension() {
 		val notificationRole by optionalRole {
 			name = "notification-role"
 			description = "The role to ping when this bot goes offline"
+		}
+	}
+
+	inner class RemoveArgs : Arguments() {
+		val bot by user {
+			name = "bot"
+			description = "The bot to remove from the watchlist"
+
+			autoComplete {
+				val bots = WatchedBotCollection().getWatchedBots(data.guildId.value!!)
+				val map = mutableMapOf<String, String>()
+
+				bots.forEach { mapFromDb ->
+					mapFromDb.bot.forEach {
+						map[it.key] = it.value.toString()
+					}
+				}
+
+				suggestStringMap(map)
+			}
 		}
 	}
 }

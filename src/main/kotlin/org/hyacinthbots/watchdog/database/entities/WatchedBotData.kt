@@ -7,12 +7,23 @@
 package org.hyacinthbots.watchdog.database.entities
 
 import dev.kord.common.entity.Snowflake
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
+@Suppress("DataClassShouldBeImmutable")
 @Serializable
 data class WatchedBotData(
 	val guildId: Snowflake,
 	val notificationChannel: Snowflake,
 	val notificationRole: Snowflake?,
+	val downtimeLength: Int,
+	var currentDowntime: CurrentDowntime?,
 	val bot: MutableMap<String, Snowflake>
+)
+
+@Suppress("DataClassShouldBeImmutable")
+@Serializable
+data class CurrentDowntime(
+	val downtimeStart: Instant?,
+	var offlineMinutes: Int = 0,
 )

@@ -11,6 +11,7 @@ package org.hyacinthbots.watchdog
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
+import org.hyacinthbots.watchdog.extensions.DowntimeNotifier
 import org.hyacinthbots.watchdog.extensions.WatchedBot
 
 suspend fun main() {
@@ -31,6 +32,7 @@ suspend fun main() {
 
         extensions {
 			add(::WatchedBot)
+			add(::DowntimeNotifier)
         }
 
 		presence {

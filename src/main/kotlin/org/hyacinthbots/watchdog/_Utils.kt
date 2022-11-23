@@ -10,6 +10,7 @@ import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
 import com.kotlindiscord.kord.extensions.utils.loadModule
 import kotlinx.coroutines.runBlocking
 import org.hyacinthbots.watchdog.database.Database
+import org.hyacinthbots.watchdog.database.collections.WatchedBotCollection
 import org.koin.dsl.bind
 
 suspend inline fun ExtensibleBotBuilder.database(migrate: Boolean) {
@@ -22,7 +23,7 @@ suspend inline fun ExtensibleBotBuilder.database(migrate: Boolean) {
 			}
 
 			loadModule {
-				// single {  } bind
+				single { WatchedBotCollection() } bind WatchedBotCollection::class
 			}
 
 			if (migrate) {
