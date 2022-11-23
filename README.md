@@ -1,24 +1,16 @@
-# Lily watchdog
+# SaffronStatus
 
-This is a simple bot designed to monitor the status of [LilyBot](https://github.com/IrisShaders/LilyBot).
+This is a simple bot designed to monitor the online status of a bot
 
-When the bot is offline for more than 2 consecutive minutes, a notification will be posted to the selected channel, 
-provided in the `.env` file. When the bot is then online again, a new notification will be posted and a downtime summary
+When a bot is offline for more that your specified number of minutes, a notification will be posted to the selected channel, 
+provided in /watched-bot add command. When the bot is then online again, a new notification will be posted and a downtime summary
 provided.
 
 Example `.env` file:
 ```dotenv
 BOT_TOKEN=
-LILY_ID=
-GUILD_ID=
-DEV_ROLE=
-DOWNTIME_ROLE=
-ANNOUNCEMENT_CHANNEL=
+MONGO_URI=
 ```
 
 * BOT_TOKEN: The token of the bot.
-* LILY_ID: The ID of the bot to monitor.
-* GUILD_ID: The ID of the guild where the bot is located.
-* DEV_ROLE: The ID of the role that will be pinged when Lily is down.
-* DOWNTIME_ROLE: The ID of the notification role.
-* ANNOUNCEMENT_CHANNEL: The ID of the channel where the downtime announcement will be posted.
+* MONGO_URI: The connection string to the databased
