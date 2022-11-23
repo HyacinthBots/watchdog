@@ -22,7 +22,7 @@ class Database {
 
 	private val client = KMongo.createClient(settings).coroutine
 
-	val watchdogDatabase get() = client.getDatabase("watchdog")
+	val watchdogDatabase get() = client.getDatabase("SaffronStatus")
 
 	suspend fun migrate() {
 		// do the thing
