@@ -4,6 +4,7 @@ plugins {
     application
 
     kotlin("jvm")
+    kotlin("plugin.serialization")
 
     id("com.github.johnrengelman.shadow")
     id("io.gitlab.arturbosch.detekt")
@@ -38,10 +39,13 @@ dependencies {
     // Logging dependencies
     implementation(libs.logback)
     implementation(libs.logging)
+
+    // Database dependencies
+    implementation(libs.kmongo)
 }
 
 application {
-    mainClass.set("org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt")
+    mainClass.set("org.hyacinthbots.watchdog.WatchdogKt")
 }
 
 gitHooks {
@@ -66,7 +70,7 @@ tasks {
     jar {
         manifest {
             attributes(
-                "Main-Class" to "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+                "Main-Class" to "org.hyacinthbots.watchdog.WatchdogKt"
             )
         }
     }
