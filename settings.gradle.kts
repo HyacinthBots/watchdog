@@ -1,7 +1,8 @@
 pluginManagement {
     plugins {
-        // Update this in libs.version.toml when you change it here
-        kotlin("jvm") version "1.7.21"
+        val kotlinVersion = "1.7.21"
+        kotlin("jvm") version kotlinVersion
+        kotlin("plugin.serialization") version kotlinVersion
 
         id("com.github.johnrengelman.shadow") version "7.1.2"
 
@@ -11,7 +12,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Hyacinth-watchdog"
+rootProject.name = "SaffronStatus"
 
 enableFeaturePreview("VERSION_CATALOGS")
 

@@ -4,6 +4,7 @@ plugins {
     application
 
     kotlin("jvm")
+    kotlin("plugin.serialization")
 
     id("com.github.johnrengelman.shadow")
     id("io.gitlab.arturbosch.detekt")
@@ -11,7 +12,7 @@ plugins {
     id("org.cadixdev.licenser") version "0.6.1"
 }
 
-group = "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+group = "org.hyacinthbots.saffronstatus.SaffronStatusKt"
 version = "1.0.0"
 
 repositories {
@@ -38,10 +39,13 @@ dependencies {
     // Logging dependencies
     implementation(libs.logback)
     implementation(libs.logging)
+
+    // Database dependencies
+    implementation(libs.kmongo)
 }
 
 application {
-    mainClass.set("org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt")
+    mainClass.set("org.hyacinthbots.saffronstatus.SaffronStatusKt")
 }
 
 gitHooks {
@@ -66,9 +70,14 @@ tasks {
     jar {
         manifest {
             attributes(
-                "Main-Class" to "org.hyacinthbots.hyacinthwatchdog.HyacinthWatchdogKt"
+                "Main-Class" to "org.hyacinthbots.saffronstatus.SaffronStatusKt"
             )
         }
+    }
+
+    wrapper {
+        gradleVersion = "7.6"
+        distributionType = Wrapper.DistributionType.BIN
     }
 }
 

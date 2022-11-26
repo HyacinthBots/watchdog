@@ -6,19 +6,22 @@
 
 @file:OptIn(PrivilegedIntent::class)
 
-package org.hyacinthbots.hyacinthwatchdog
+package org.hyacinthbots.saffronstatus
 
 import com.kotlindiscord.kord.extensions.ExtensibleBot
 import dev.kord.gateway.Intent
 import dev.kord.gateway.PrivilegedIntent
-import org.hyacinthbots.hyacinthwatchdog.extensions.DowntimeWatcher
+import org.hyacinthbots.saffronstatus.extensions.DowntimeNotifier
+import org.hyacinthbots.saffronstatus.extensions.WatchedBot
 
 suspend fun main() {
     val bot = ExtensibleBot(BOT_TOKEN) {
+		database(true)
 		// Fill all members so we can get statuses
         members {
             all()
             fillPresences = true
+			lockMemberRequests = true
         }
 
 		// Add the GuildMembers intent and GuildPresences intent to allow the bot to see the status of other guild members
@@ -28,11 +31,12 @@ suspend fun main() {
         }
 
         extensions {
-            add(::DowntimeWatcher)
+			add(::WatchedBot)
+			add(::DowntimeNotifier)
         }
 
 		presence {
-			watching("Hyacinth Bots status'!")
+			watching("bots for downtime!")
 		}
     }
 
