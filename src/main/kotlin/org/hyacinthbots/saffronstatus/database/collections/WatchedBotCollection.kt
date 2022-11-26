@@ -43,6 +43,8 @@ class WatchedBotCollection : KordExKoinComponent {
 	 * Gets a list of the watched bots for the given [inputGuildId].
 	 *
 	 * @param inputGuildId The ID of the guild ot search
+	 * @return A list of all the [WatchedBotData] for the guild
+	 * @author NoComment1105
 	 */
 	suspend inline fun getWatchedBots(inputGuildId: Snowflake): List<WatchedBotData> =
 		collection.find(WatchedBotData::guildId eq inputGuildId).toList()
@@ -52,6 +54,8 @@ class WatchedBotCollection : KordExKoinComponent {
 	 *
 	 * @param inputGuildId The ID of the guild the bot is being watched by
 	 * @param bot The map of the bots name and ID
+	 * @return The [WatchedBotData] for the bot
+	 * @author NoComment1105
 	 */
 	suspend inline fun getWatchedBot(inputGuildId: Snowflake, bot: MutableMap<String, Snowflake>): WatchedBotData? =
 		collection.findOne(WatchedBotData::guildId eq inputGuildId, WatchedBotData::bot eq bot)

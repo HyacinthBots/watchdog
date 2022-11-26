@@ -9,7 +9,7 @@ package org.hyacinthbots.saffronstatus
 import com.kotlindiscord.kord.extensions.utils.env
 import com.kotlindiscord.kord.extensions.utils.envOrNull
 
-/** The Bots token. */
+/** The bot's token. */
 val BOT_TOKEN = env("BOT_TOKEN")
 
 /** The string for connection to the database, defaults to localhost. */

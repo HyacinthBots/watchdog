@@ -36,7 +36,7 @@ suspend fun main() {
         }
 
 		presence {
-			watching("Bots for downtime!")
+			watching("bots for downtime!")
 		}
     }
 
