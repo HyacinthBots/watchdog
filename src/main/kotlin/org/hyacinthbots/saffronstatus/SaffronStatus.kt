@@ -16,7 +16,7 @@ import org.hyacinthbots.saffronstatus.extensions.WatchedBot
 
 suspend fun main() {
     val bot = ExtensibleBot(BOT_TOKEN) {
-		database(true)
+		database(false) // TODO Set to true when the first migration is filled
 		// Fill all members so we can get statuses
         members {
             all()
