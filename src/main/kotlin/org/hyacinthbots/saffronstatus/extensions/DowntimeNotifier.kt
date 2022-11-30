@@ -97,7 +97,7 @@ class DowntimeNotifier : Extension() {
 								content = "${notificationRole?.mention ?: ""} ${currentBot.mention} " +
 										"is suffering downtime. You will be notified when the bot is restored."
 							}
-							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null) {
+							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null && newData.publishMessage == true) {
 								// Is a news channel, publish message.
 								msg.publish()
 							}
@@ -136,7 +136,7 @@ class DowntimeNotifier : Extension() {
 									}
 								}
 							}
-							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null) {
+							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null && newData.publishMessage == true) {
 								// Is a news channel, publish message.
 								msg.publish()
 							}
