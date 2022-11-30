@@ -94,7 +94,7 @@ class DowntimeNotifier : Extension() {
 							notificationChannel.createMessage {
 								content = "${notificationRole?.mention ?: ""} ${currentBot.mention} " +
 										"is suffering downtime. You will be notified when the bot is restored."
-							}
+							}.publish()
 						}
 					} else {
 						// The bot is, in fact, online at this time, so we get the bot from the db
@@ -129,7 +129,7 @@ class DowntimeNotifier : Extension() {
 										value = "${downtime.offlineMinutes} minutes"
 									}
 								}
-							}
+							}.publish()
 							// Yeet the downtime information as it's old now
 							WatchedBotCollection().updateDowntime(
 								guild.id,
