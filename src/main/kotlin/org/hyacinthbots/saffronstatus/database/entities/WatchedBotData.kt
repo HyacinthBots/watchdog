@@ -19,6 +19,7 @@ import kotlinx.serialization.Serializable
  * @property downtimeLength The time the bot can be down for before a notification is sent
  * @property currentDowntime The data about the current downtime period the bot is in, or null if it's online
  * @property bot A map containing the bots name as the key and its ID as the value
+ * @property publishMessage Whether to publish the downtime messages when in an Announcement Channel
  */
 @Serializable
 data class WatchedBotData(
@@ -27,7 +28,8 @@ data class WatchedBotData(
 	val notificationRole: Snowflake?,
 	val downtimeLength: Int,
 	val currentDowntime: CurrentDowntime?,
-	val bot: MutableMap<String, Snowflake>
+	val bot: MutableMap<String, Snowflake>,
+	val publishMessage: Boolean
 )
 
 /**
