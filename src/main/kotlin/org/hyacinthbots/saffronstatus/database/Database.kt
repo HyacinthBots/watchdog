@@ -10,6 +10,7 @@ import com.mongodb.ConnectionString
 import com.mongodb.MongoClientSettings
 import org.bson.UuidRepresentation
 import org.hyacinthbots.saffronstatus.MONGO_URI
+import org.hyacinthbots.saffronstatus.database.migrations.Migrator
 import org.litote.kmongo.coroutine.coroutine
 import org.litote.kmongo.reactivestreams.KMongo
 
@@ -25,6 +26,6 @@ class Database {
 	val watchdogDatabase get() = client.getDatabase("SaffronStatus")
 
 	suspend fun migrate() {
-		// do the thing
+		Migrator.migrate()
 	}
 }

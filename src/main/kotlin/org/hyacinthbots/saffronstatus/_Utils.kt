@@ -10,6 +10,7 @@ import com.kotlindiscord.kord.extensions.builders.ExtensibleBotBuilder
 import com.kotlindiscord.kord.extensions.utils.loadModule
 import kotlinx.coroutines.runBlocking
 import org.hyacinthbots.saffronstatus.database.Database
+import org.hyacinthbots.saffronstatus.database.collections.MetaCollection
 import org.hyacinthbots.saffronstatus.database.collections.WatchedBotCollection
 import org.koin.dsl.bind
 
@@ -24,6 +25,7 @@ suspend inline fun ExtensibleBotBuilder.database(migrate: Boolean) {
 
 			loadModule {
 				single { WatchedBotCollection() } bind WatchedBotCollection::class
+				single { MetaCollection() } bind MetaCollection::class
 			}
 
 			if (migrate) {
