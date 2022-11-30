@@ -13,9 +13,11 @@ import com.kotlindiscord.kord.extensions.time.toDiscord
 import com.kotlindiscord.kord.extensions.utils.scheduling.Scheduler
 import com.kotlindiscord.kord.extensions.utils.scheduling.Task
 import dev.kord.common.entity.PresenceStatus
+import dev.kord.core.behavior.channel.asChannelOfOrNull
 import dev.kord.core.behavior.channel.createMessage
 import dev.kord.core.behavior.getChannelOf
 import dev.kord.core.entity.channel.GuildMessageChannel
+import dev.kord.core.entity.channel.NewsChannel
 import dev.kord.rest.builder.message.create.embed
 import kotlinx.coroutines.flow.toList
 import kotlinx.datetime.Clock
@@ -91,10 +93,14 @@ class DowntimeNotifier : Extension() {
 								)
 							)
 							// Send the notification
-							notificationChannel.createMessage {
+							val msg = notificationChannel.createMessage {
 								content = "${notificationRole?.mention ?: ""} ${currentBot.mention} " +
 										"is suffering downtime. You will be notified when the bot is restored."
-							}.publish()
+							}
+							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null) {
+								// Is a news channel, publish message.
+								msg.publish()
+							}
 						}
 					} else {
 						// The bot is, in fact, online at this time, so we get the bot from the db
@@ -107,7 +113,7 @@ class DowntimeNotifier : Extension() {
 							val onlineTime = Clock.System.now() // Get the online time
 
 							// Send a notification about it
-							notificationChannel.createMessage {
+							val msg = notificationChannel.createMessage {
 								content = "${notificationRole?.mention ?: ""} ${currentBot.mention} is back online, " +
 										"you can find a brief summary of the downtime below."
 								embed {
@@ -129,7 +135,11 @@ class DowntimeNotifier : Extension() {
 										value = "${downtime.offlineMinutes} minutes"
 									}
 								}
-							}.publish()
+							}
+							if (msg.channel.asChannel().asChannelOfOrNull<NewsChannel>() != null) {
+								// Is a news channel, publish message.
+								msg.publish()
+							}
 							// Yeet the downtime information as it's old now
 							WatchedBotCollection().updateDowntime(
 								guild.id,
