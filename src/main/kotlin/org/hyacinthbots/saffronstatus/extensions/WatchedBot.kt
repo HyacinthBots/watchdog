@@ -194,7 +194,7 @@ class WatchedBot : Extension() {
 		}
 		val publishMessage by boolean {
 			name = "publish-message"
-			description = "Whether to publish the downtime messages for this bot"
+			description = "If downtime messages sent in announcement channels should be published"
 		}
 		val notificationRole by optionalRole {
 			name = "notification-role"
