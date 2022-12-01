@@ -11,7 +11,6 @@ import org.litote.kmongo.coroutine.CoroutineDatabase
 import org.litote.kmongo.exists
 import org.litote.kmongo.setValue
 
-@Suppress("UnusedPrivateMember")
 suspend fun v1(db: CoroutineDatabase) {
 	// TODO Fill with migration and set true in main function
 	with(db.getCollection<WatchedBotData>()) {
