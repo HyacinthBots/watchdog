@@ -17,9 +17,7 @@ suspend fun v1(db: CoroutineDatabase) {
 	with(db.getCollection<WatchedBotData>()) {
 		updateMany(
 			WatchedBotData::publishMessage exists false,
-			    setValue(
-			        WatchedBotData::publishMessage, false
-			)
+			setValue(WatchedBotData::publishMessage, false)
 		)
 	}
 }
