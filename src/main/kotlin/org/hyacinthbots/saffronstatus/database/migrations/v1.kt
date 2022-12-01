@@ -12,7 +12,6 @@ import org.litote.kmongo.exists
 import org.litote.kmongo.setValue
 
 suspend fun v1(db: CoroutineDatabase) {
-	// TODO Fill with migration and set true in main function
 	with(db.getCollection<WatchedBotData>()) {
 		updateMany(
 			WatchedBotData::publishMessage exists false,
