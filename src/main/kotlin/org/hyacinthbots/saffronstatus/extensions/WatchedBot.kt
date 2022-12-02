@@ -10,6 +10,7 @@ import com.kotlindiscord.kord.extensions.checks.anyGuild
 import com.kotlindiscord.kord.extensions.checks.hasPermission
 import com.kotlindiscord.kord.extensions.commands.Arguments
 import com.kotlindiscord.kord.extensions.commands.application.slash.ephemeralSubCommand
+import com.kotlindiscord.kord.extensions.commands.converters.impl.boolean
 import com.kotlindiscord.kord.extensions.commands.converters.impl.channel
 import com.kotlindiscord.kord.extensions.commands.converters.impl.int
 import com.kotlindiscord.kord.extensions.commands.converters.impl.member
@@ -55,7 +56,7 @@ class WatchedBot : Extension() {
 
 					if (isBotPresent != null) {
 						respond {
-							content = "You are already watching this bot! Please chose a different bot"
+							content = "You are already watching this bot! Please choose a different bot"
 						}
 						return@action
 					} else if (guild!!.getMemberOrNull(arguments.bot.id) == null) {
@@ -102,7 +103,8 @@ class WatchedBot : Extension() {
 							arguments.notificationRole?.id,
 							arguments.downtimeLength,
 							null,
-							botMap
+							botMap,
+							arguments.publishMessage
 						)
 					)
 
@@ -190,7 +192,10 @@ class WatchedBot : Extension() {
 			name = "notification-channel"
 			description = "The channel to send the notifications too when the bot goes offline"
 		}
-
+		val publishMessage by boolean {
+			name = "publish-message"
+			description = "If downtime messages sent in announcement channels should be published"
+		}
 		val notificationRole by optionalRole {
 			name = "notification-role"
 			description = "The role to ping when this bot goes offline"
