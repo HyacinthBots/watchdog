@@ -18,6 +18,7 @@ import com.kotlindiscord.kord.extensions.commands.converters.impl.user
 import com.kotlindiscord.kord.extensions.extensions.Extension
 import com.kotlindiscord.kord.extensions.extensions.ephemeralSlashCommand
 import com.kotlindiscord.kord.extensions.types.respond
+import com.kotlindiscord.kord.extensions.utils.hasPermission
 import com.kotlindiscord.kord.extensions.utils.suggestStringMap
 import dev.kord.common.entity.Permission
 import dev.kord.common.entity.Snowflake
@@ -76,6 +77,7 @@ class WatchedBot : Extension() {
 						null
 					}
 
+					@Suppress("UnnecessaryParentheses") // Shut up, clarity over whatever you think
 					if (guild!!.getChannelOfOrNull<GuildMessageChannel>(arguments.notificationChannel.id) == null) {
 						respond {
 							content = "I cannot find the Notification Channel you specified. Please check it exists" +
@@ -87,7 +89,11 @@ class WatchedBot : Extension() {
 							content = "I cannot find the Notification role you specified. Please check it exists!"
 						}
 						return@action
-					} else if (arguments.notificationRole != null && role?.mentionable != true) {
+					} else if (arguments.notificationRole != null && (
+					    role?.mentionable != true && !event.kord.getSelf()
+							.asMember(guild!!.id).hasPermission(Permission.Administrator)
+					)
+					) {
 						respond {
 							content =
 								"I cannot mention role: `${role?.name}`. Please make sure I can mention it and try again"
