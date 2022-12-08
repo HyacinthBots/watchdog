@@ -82,7 +82,8 @@ class WatchedBotCollection : KordExKoinComponent {
 				data.notificationRole,
 				data.downtimeLength,
 				currentDowntime,
-				data.bot
+				data.bot,
+				data.publishMessage
 			)
 		)
 	}
